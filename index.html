@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SAWA سوا — UAE Farmers Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Public+Sans:wght@400;500;600&family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f3ee;--card:#ffffff;--ink:#17261f;--mute:#5d6b63;--line:#d8dcd2;--brand:#00732f;--brand-ink:#fff;--date:#9a6a12;--bad:#a8322a;--warn:#a86d0a;--ok:#1f7a4f;--tint:#e1eadf;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1713;--card:#17211b;--ink:#e6ede7;--mute:#98a89e;--line:#27352c;--brand:#5fbf92;--brand-ink:#0b1a12;--date:#e0a85a;--bad:#ec7a70;--warn:#e3a94a;--ok:#68c99a;--tint:#1d2c23}}
+:root[data-theme="dark"]{--bg:#0f1713;--card:#17211b;--ink:#e6ede7;--mute:#98a89e;--line:#27352c;--brand:#5fbf92;--brand-ink:#0b1a12;--date:#e0a85a;--bad:#ec7a70;--warn:#e3a94a;--ok:#68c99a;--tint:#1d2c23}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'Public Sans','Cairo',system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque','Cairo','Public Sans',system-ui,sans-serif;margin:0;letter-spacing:-.01em}
+.app{display:grid;grid-template-columns:210px 1fr;min-height:100vh}
+nav{background:var(--brand);color:var(--brand-ink);padding:22px 14px;position:sticky;top:0;align-self:start;height:100vh}
+nav .logo{font:700 30px 'Bricolage Grotesque',sans-serif;padding:0 10px 2px}
+nav .sub{font-size:12.5px;opacity:.8;padding:0 10px 22px}
+nav button{display:block;width:100%;text-align:left;background:none;border:0;color:inherit;font:inherit;padding:10px;border-radius:8px;cursor:pointer;opacity:.82}
+nav button:hover{opacity:1}nav button[aria-current=true]{background:rgba(255,255,255,.16);opacity:1;font-weight:600}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--date);outline-offset:2px}
+main{padding:26px 28px;max-width:1100px;width:100%}
+.head{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.head h2{font-size:26px}.head p{margin:2px 0 0;color:var(--mute)}
+.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+.kpi b{display:block;font:700 30px 'Bricolage Grotesque',sans-serif}.kpi span{color:var(--mute);font-size:13.5px}
+.date-band{background:var(--tint);border-left:4px solid var(--date);padding:12px 16px;border-radius:6px;margin-bottom:16px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);font-size:14px}th{color:var(--mute);font-weight:500}
+.wrap{overflow-x:auto}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12.5px;font-weight:600;border:1px solid currentColor}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}.mute{color:var(--mute)}
+.btn{background:var(--brand);color:var(--brand-ink);border:0;border-radius:8px;padding:8px 14px;font:600 14px 'Public Sans',sans-serif;cursor:pointer}
+.btn.alt{background:none;color:var(--brand);border:1px solid var(--brand)}
+form.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+input,select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);min-width:0}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:var(--brand)}
+.alert{display:flex;gap:12px;justify-content:space-between;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+.steps{display:flex;gap:6px;margin:8px 0}.steps span{flex:1;height:6px;border-radius:4px;background:var(--line)}.steps span.on{background:var(--date)}
+.shop-top{display:flex;gap:8px;background:#12291d;padding:10px;border-radius:10px;margin-bottom:14px;align-items:center;flex-wrap:wrap}
+.shop-top input{flex:1;min-width:180px;background:#fff;color:#111;border:0}
+.shop-top select{background:#fff;color:#111;border:0}
+.amz{background:#f0b429;color:#1a1a1a;border:0;border-radius:99px;padding:8px 14px;font:600 14px 'Public Sans',sans-serif;cursor:pointer}
+.amz:hover{background:#e3a717}
+.shop{display:grid;grid-template-columns:200px 1fr;gap:14px;align-items:start}
+.filters label{display:block;margin:10px 0 4px;font-weight:600;font-size:14px}.filters input[type=checkbox]{margin-right:6px}.filters input,.filters select{width:100%}.filters input[type=checkbox]{width:auto}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.pimg{height:130px;display:grid;place-items:center;font-size:62px;background:var(--tint)}
+.pb{padding:12px;display:flex;flex-direction:column;gap:4px;flex:1}
+.pt{font-weight:600;line-height:1.3}
+.stars{color:#e39b0c;font-size:14px}.stars span{color:var(--mute);font-size:13px}
+.price{font:700 26px 'Bricolage Grotesque',sans-serif}.price sup{font-size:12px;font-weight:600}.price small{font:400 13px 'Public Sans',sans-serif;color:var(--mute)}
+.small{font-size:12.5px}
+.modes{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.modes button{border:1px solid var(--brand);background:none;color:var(--brand);border-radius:99px;padding:7px 16px;font:600 14px 'Public Sans',sans-serif;cursor:pointer}.modes button.on{background:var(--brand);color:var(--brand-ink)}
+.chat{height:300px;overflow-y:auto;border:1px solid var(--line);border-radius:8px;padding:10px;margin:10px 0;display:flex;flex-direction:column;gap:8px;background:var(--bg)}
+.m{max-width:88%;padding:8px 12px;border-radius:12px;white-space:pre-wrap}.m.u{align-self:flex-end;background:var(--brand);color:var(--brand-ink)}.m.a{align-self:flex-start;background:var(--card);border:1px solid var(--line)}
+#micBtn.on{background:var(--bad);color:#fff;border-color:var(--bad)}
+details.g summary{cursor:pointer;padding:2px 0}.stp{display:grid;grid-template-columns:80px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--line)}.stp b{color:var(--brand)}
+ol.stops{margin:8px 0;padding:0;list-style:none}ol.stops li{padding:6px 0;border-top:1px solid var(--line);font-size:14px}
+.wx{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:10px}.wt{border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg)}.wt .tp{font:700 24px 'Bricolage Grotesque',sans-serif}.wt .tag{font-size:12px;margin:2px 4px 0 0}
+.cartbox{display:none;margin-bottom:14px}.cartbox.on{display:block}
+.sec{display:none}.sec.on{display:block}
+svg text{font:12px 'Public Sans',sans-serif;fill:var(--ink)}
+.legend{display:flex;align-items:center;gap:8px;color:var(--mute);font-size:13px;margin-top:8px}.legend i{width:120px;height:8px;border-radius:5px;background:linear-gradient(90deg,var(--tint),var(--brand))}
+@media(max-width:760px){.shop{grid-template-columns:1fr}.app{grid-template-columns:1fr}nav{position:sticky;height:auto;top:0;z-index:5;display:flex;gap:4px;overflow-x:auto;padding:10px;align-items:center}nav .sub{display:none}nav .logo{padding:0 8px;font-size:22px}nav button{width:auto;white-space:nowrap}main{padding:18px 14px}}
+
+nav{background:#0c1a12;color:#fff}
+nav .logo{display:flex;align-items:baseline;gap:8px;padding-bottom:8px}
+nav .logo .ar{font:700 24px 'Cairo',sans-serif;color:#6fd08f}
+.cbar{display:flex;height:4px;margin:0 10px 14px;border-radius:2px;overflow:hidden}.cbar i{flex:1}
+nav .sub{font-family:'Cairo','Public Sans',sans-serif}
+nav button{display:flex;align-items:center;gap:10px;text-align:start;margin-bottom:2px}
+nav button small{display:block;opacity:.7;font:500 12px 'Cairo',sans-serif;line-height:1.2}
+nav button[aria-current=true]{box-shadow:inset 3px 0 0 #EF3340}
+main{max-width:1180px}
+.head h2{font-size:28px}.head .ar,.ar{font-family:'Cairo',sans-serif;color:var(--mute);font-weight:500;font-size:.7em;margin-inline-start:6px}
+.card{box-shadow:0 1px 2px rgba(15,30,20,.07);border-radius:12px}
+.kpi{border-top:3px solid var(--brand)}.g4>.kpi:nth-child(2){border-top-color:#EF3340}.g4>.kpi:nth-child(3){border-top-color:var(--ink)}.g4>.kpi:nth-child(4){border-top-color:var(--date)}
+.hero{background:#0b5a2a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.13'%3E%3Crect x='14' y='14' width='28' height='28'/%3E%3Crect x='14' y='14' width='28' height='28' transform='rotate(45 28 28)'/%3E%3C/g%3E%3C/svg%3E");color:#fff;border-radius:14px;padding:26px 28px;margin-bottom:16px}
+.hero .arh{font:700 30px 'Cairo',sans-serif;margin:0;line-height:1.3}.hero h1{margin:0;font-size:36px}.hero .hp{margin:6px 0 16px;max-width:520px;opacity:.92}
+.acts{display:flex;gap:8px;flex-wrap:wrap}.hbtn{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:99px;padding:8px 16px;font:600 14px 'Public Sans',sans-serif;cursor:pointer}.hbtn:hover{background:rgba(255,255,255,.24)}
+.foot{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);color:var(--mute);font-size:13px}
+@media(max-width:760px){nav .cbar,nav small,nav .logo .ar{display:none}.hero{padding:20px 16px}.hero h1{font-size:28px}}
+@media(min-width:761px){
+.app{transition:grid-template-columns .25s ease}
+.app.min{grid-template-columns:68px 1fr}
+.app.min nav{padding:22px 8px}
+.app.min nav .logo{font-size:16px;justify-content:center;padding:0 0 8px}
+.app.min nav .logo .ar,.app.min nav .sub,.app.min nav .cbar{display:none}
+.app.min nav button{justify-content:center;padding:10px 4px}
+.app.min nav button>span:nth-child(2){display:none}
+}
+@media(max-width:760px){#navToggle{display:none}}
+@media(prefers-reduced-motion:reduce){.app{transition:none}}
+@media(min-width:761px){nav{height:100vh;height:100dvh;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#2e4636 transparent}}
+@media(min-width:761px) and (max-height:820px){nav{padding-top:14px}nav .sub{padding-bottom:10px}nav button{padding:6px 10px}nav button small{font-size:11px}}
+
+body[data-role=gov] nav button.fnav,body[data-role=farmer] nav button.gnav{display:none}
+.lg{position:fixed;inset:0;z-index:50;background:var(--bg);display:grid;place-items:center;padding:20px;overflow-y:auto}
+.lg.off{display:none}
+.lgbox{width:100%;max-width:400px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;box-shadow:0 1px 2px rgba(15,30,20,.07)}
+.lgbox .lgl{font:700 34px 'Bricolage Grotesque',sans-serif;color:var(--brand)}
+.lgbox .modes{margin:14px 0 10px}
+.lgbox form{display:grid;gap:10px}
+.lgbox label{font-size:13px;color:var(--mute);display:grid;gap:4px}
+.lgerr{color:var(--bad);font-size:13.5px;min-height:18px;margin:0}
+.lgnote{font-size:12.5px;color:var(--mute);margin:10px 0 0}
+.who{padding:14px 10px 0;font-size:12.5px}
+.who button{margin-top:6px;border:1px solid currentColor;justify-content:center;padding:6px}
+.app.min nav .who .wl{display:none}
+.gbar{background:var(--tint);border-left:4px solid #EF3340;padding:10px 16px;border-radius:6px;margin-bottom:16px;font-size:14px}
+.gform{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px;align-items:end}
+.gform label{font-size:13px;color:var(--mute);display:grid;gap:4px}
+.gform .btn{align-self:end}
+.gmsg{min-height:18px;margin:8px 0 0;font-size:13.5px}
+.wtag{margin-inline-start:4px}
+.nrow{display:grid;grid-template-columns:1.2fr 2fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.nrow:last-child{border-bottom:0}
+.nrow .bt{display:flex;gap:6px}
+@media(max-width:760px){.nrow{grid-template-columns:1fr}}
+</style></head><body data-role="farmer">
+<div class="lg" id="login"><div class="lgbox">
+<div class="lgl">SAWA <span class="ar">سوا</span></div><p class="mute" style="margin:2px 0 0">Farmers of the UAE</p>
+<div class="modes" id="roleTabs"><button class="on" data-r="farmer" type="button">Farmer login</button><button data-r="gov" type="button">Dashboard login</button></div>
+<form id="lgFarmer"><label>Farm ID<input name="id" required autocomplete="username" placeholder="e.g. AA-1042"></label><label>PIN<input name="pw" type="password" required autocomplete="current-password" inputmode="numeric" placeholder="4 digits"></label><p class="lgerr" role="alert"></p><button class="btn">Sign in as farmer</button><p class="lgnote">Demo: Farm ID <b>AA-1042</b>, PIN <b>1234</b></p></form>
+<form id="lgGov" style="display:none"><label>Username<input name="id" required autocomplete="username" placeholder="Staff username"></label><label>Password<input name="pw" type="password" required autocomplete="current-password"></label><p class="lgerr" role="alert"></p><button class="btn">Sign in to dashboard</button><p class="lgnote">Government side. Demo: username <b>admin</b>, password <b>sawa2026</b></p></form>
+</div></div>
+<div class="app">
+<nav id="nav"><div class="logo">SAWA <span class="ar">سوا</span></div><div class="cbar"><i style="background:#EF3340"></i><i style="background:#00732F"></i><i style="background:#fff"></i><i style="background:#000;outline:1px solid #3a3a3a"></i></div><div class="sub">Farmers of the UAE · مزارعو الإمارات</div></nav>
+<main>
+
+<section class="sec" id="overview">
+<div class="hero"><div class="cbar" style="margin:0 0 16px;width:120px"><i style="background:#EF3340"></i><i style="background:#00732F"></i><i style="background:#fff"></i><i style="background:#000"></i></div><p class="arh">أهلاً بكم في سوا</p><h1>Welcome to SAWA</h1><p class="hp">One place for the farmers of the UAE to sell fairly, warn each other and get crops to market.</p><div class="acts"><button class="amz" onclick="go('market')">Sell or buy</button><button class="hbtn" onclick="go('alerts')">Send an alert</button><button class="hbtn" onclick="go('logistics')">Request a pickup</button></div></div>
+<div class="date-band"><b>Date season is open.</b> <span id="dateNote"></span></div>
+<div class="grid g4" id="kpis"></div>
+<div class="card" style="margin-top:14px"><h3>Weather by area</h3><p class="mute" style="margin:2px 0;font-size:13.5px">Sample readings. Spray advice follows wind speed, so pesticide does not drift onto neighbours.</p><div class="wx" id="wx"></div></div>
+<div class="grid g2" style="margin-top:14px">
+<div class="card"><h3>Latest alert</h3><div id="ovAlert"></div></div>
+<div class="card"><h3>Most needed by the country</h3><div id="ovDemand"></div></div>
+</div></section>
+
+<section class="sec" id="market">
+<div class="shop-top"><select id="cat" aria-label="Category"></select><input id="q" placeholder="Search" aria-label="Search"><button class="amz" id="cartBtn">Cart (<span id="cartN">0</span>)</button></div>
+<div class="modes"><button class="on" data-m="p">Farm produce</button><button data-m="s">Farm supplies</button></div>
+<div class="card cartbox" id="cartBox"></div>
+<div class="shop">
+<aside class="card filters"><h3>Refine</h3>
+<label for="sort">Sort by</label><select id="sort"><option value="">Featured</option><option value="lo">Price: low to high</option><option value="hi">Price: high to low</option><option value="rt">Customer rating</option></select>
+<label for="maxp" id="maxl">Max price (AED/kg)</label><input id="maxp" type="number" min="0" step="0.5" placeholder="Any">
+<label><input type="checkbox" id="vonly">Verified sellers only</label>
+<div id="supFilters" style="display:none"><label for="supSel">Supplier</label><select id="supSel"></select><label for="tgtSel">Problem to control</label><select id="tgtSel"></select><label><input type="checkbox" id="bioOnly">Biological control only</label></div>
+</aside>
+<div><p class="mute" id="resCount" style="margin:0 0 8px"></p><div class="pgrid" id="listings"></div>
+<details class="card" id="sellBox" style="margin-top:14px"><summary><b>Sell your produce</b></summary>
+<form class="row" id="listForm"><select name="crop" id="cropSel"></select><input name="farmer" placeholder="Farm name" required><input name="qty" type="number" min="1" placeholder="Quantity (kg)" required><input name="price" type="number" step="0.1" min="0.1" placeholder="AED per kg" required><button class="btn">Publish listing</button></form></details>
+</div></div>
+</section>
+
+<section class="sec" id="alerts">
+<div class="head"><div><h2>Farmer alerts</h2><p>Warn neighbours about pesticide drift, pests and bad inputs.</p></div></div>
+<div class="card" id="alertList"></div>
+<div class="card" style="margin-top:14px"><h3>Send an alert</h3>
+<form class="row" id="alertForm"><select name="type"><option>Pesticide drift</option><option>Pest outbreak</option><option>Contaminated input</option></select><select name="zone" id="zoneSel"></select><input name="note" placeholder="What did you see?" required style="flex:1;min-width:200px"><button class="btn">Send alert</button></form></div>
+</section>
+
+<section class="sec" id="gov">
+<div class="head"><div><h2>What the country needs</h2><p>Set by the Ministry. Pledge a quantity to lock in the guaranteed price.</p></div></div>
+<div class="grid g2" id="demandList"></div>
+</section>
+
+<section class="sec" id="logistics">
+<div class="head"><div><h2>Harvest pickup</h2><p>Farms in the same area share one truck. ❄ marks crops that need a cold truck.</p></div></div>
+<div class="grid g2" id="pickups"></div>
+<div class="card" style="margin-top:14px"><h3>Mark a crop ready</h3>
+<form class="row" id="pickForm"><select name="crop" id="pickCrop"></select><input name="farm" placeholder="Farm name" required><select name="zone" id="pickZone"></select><input name="qty" type="number" min="1" placeholder="Quantity (kg)" required><input name="ready" type="date" required><button class="btn">Request pickup</button></form></div>
+</section>
+
+<section class="sec" id="waste">
+<div class="head"><div><h2>Waste with Tadweer</h2><p>Request a farm waste collection from Tadweer, the waste management company, and learn how to sort it safely.</p></div></div>
+<div class="date-band"><b>Pesticide containers are hazardous.</b> Rinse them three times, keep them sealed, and hand them over separately. Never burn or reuse them.</div>
+<div class="grid g2">
+<div class="card"><h3>Request a collection</h3>
+<form id="wForm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px">
+<label class="mute" style="font-size:13px;grid-column:1/-1">Type of waste<select name="type" id="wType" style="width:100%"></select></label>
+<input name="farm" placeholder="Farm name" required aria-label="Farm name">
+<label class="mute" style="font-size:13px">Location<select name="zone" id="wZone" style="width:100%"></select></label>
+<input name="qty" type="number" min="1" placeholder="Quantity (kg)" required aria-label="Quantity in kg">
+<label class="mute" style="font-size:13px">Preferred date<input name="date" type="date" required style="width:100%"></label>
+<p class="small" id="wTip" style="grid-column:1/-1;margin:0"></p>
+<button class="btn" style="grid-column:1/-1">Send to Tadweer</button></form>
+<p class="mute" style="font-size:13px;margin-bottom:0">Sample. Requests stay on this page until the Tadweer connection is set up.</p></div>
+<div class="card"><h3>What goes where</h3><div id="wGuide"></div></div>
+</div>
+<div class="card" style="margin-top:14px"><h3>Your collection requests</h3><div id="wList"></div></div>
+</section>
+<section class="sec" id="land">
+<div class="head"><div><h2>Land and water</h2><p>Satellite layers from FAO WaPOR, plus what suits each area. Sample values shown.</p></div>
+<select id="layer"><option value="et">Actual evapotranspiration</option><option value="biomass">Biomass production</option><option value="wp">Water productivity</option></select></div>
+<div class="card"><svg viewBox="0 0 700 601" width="100%" role="img" aria-label="UAE zones coloured by selected WaPOR layer" id="map"></svg>
+<div class="legend"><span>Low</span><i></i><span>High</span><span id="unit" style="margin-left:auto"></span></div></div>
+<div class="card" style="margin-top:14px"><h3>What grows where</h3><div class="modes" id="cropChips" style="margin-top:10px"></div><div id="suitBox"></div><p class="mute" style="font-size:13px;margin-bottom:0">Indicative sample ratings. Confirm with ADAFSA before planting.</p></div>
+<p class="mute" style="font-size:13px">Emirate outlines are real (Natural Earth). The Al Ain, Liwa, Al Dhafra and Abu Dhabi regions inside the Abu Dhabi emirate are approximate. Live WaPOR tiles need a small server that calls the FAO data API; this page shows sample numbers until that is connected.</p>
+</section>
+<section class="sec" id="guides">
+<div class="head"><div><h2>Crop guides</h2><p>Simple steps from planting to harvest for UAE conditions.</p></div></div>
+<div class="grid g2" id="guideList"></div></section>
+
+<section class="sec" id="help">
+<div class="head"><div><h2>Help</h2><p>Ask SAWA AI by typing or speaking, or send a request to ADAFSA.</p></div></div>
+<div class="grid g2">
+<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><h3>Ask SAWA AI</h3><div class="modes" style="margin:0"><button data-l="en" class="on">English</button><button data-l="ar">العربية</button></div></div>
+<div class="chat" id="chatLog" aria-live="polite"></div>
+<div class="modes" id="chips"></div>
+<div style="display:flex;gap:8px"><input id="chatIn" style="flex:1" aria-label="Question"><button class="btn alt" id="micBtn" aria-label="Speak your question" title="Speak">🎤</button><button class="btn" id="sendBtn">Send</button></div>
+<label class="mute" style="font-size:13px;display:block;margin-top:8px"><input type="checkbox" id="speakOn" checked> Read answers aloud</label></div>
+<div class="card"><h3>Request help from ADAFSA</h3>
+<form id="adaForm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px"><input name="fid" placeholder="Farm ID" required aria-label="Farm ID"><input name="phone" type="tel" placeholder="Phone number" pattern="[+0-9 ]{8,15}" required aria-label="Phone number"><label class="mute" style="font-size:13px">Crop<select name="crop" id="adaCrop" style="width:100%"></select></label><label class="mute" style="font-size:13px">Location<select name="zone" id="adaZone" style="width:100%"></select></label><label class="mute" style="font-size:13px;grid-column:1/-1">Topic<select name="topic" style="width:100%"><option>Pest or disease</option><option>Pesticide safety</option><option>Soil and water testing</option><option>Licences and permits</option><option>Other</option></select></label><input name="note" placeholder="Describe the problem" required style="grid-column:1/-1"><button class="btn" style="grid-column:1/-1">Send request</button></form>
+<div id="adaList" style="margin-top:8px"></div>
+<p class="mute" style="font-size:13px">Sample. Requests stay on this page until the ADAFSA connection is set up.</p></div>
+</div></section>
+
+<section class="sec" id="g-over">
+<div class="head"><div><h2>National overview <span class="ar">نظرة عامة</span></h2><p>Government dashboard. How the country's food needs are being met.</p></div></div>
+<div class="gbar"><b>Government view.</b> Farmers see the needs you set on their Country needs page.</div>
+<div class="grid g4" id="gKpis"></div>
+<div class="grid g2" style="margin-top:14px">
+<div class="card"><h3>Biggest shortfalls</h3><p class="mute" style="margin:2px 0 8px;font-size:13.5px">Least pledged first.</p><div id="gShort"></div></div>
+<div class="card"><h3>Latest farmer alerts</h3><div id="gOvAlerts"></div><button class="btn alt" style="margin-top:10px" onclick="go('g-field')">See all alerts and requests</button></div>
+</div></section>
+
+<section class="sec" id="g-needs">
+<div class="head"><div><h2>Set country needs <span class="ar">احتياجات الدولة</span></h2><p>Enter what the country needs and the guaranteed price. Farmers pledge against it.</p></div></div>
+<div class="card"><h3 id="gFormTitle">Add a national need</h3>
+<form class="gform" id="gForm">
+<label>Commodity<select name="crop" id="gCrop"></select></label>
+<label>Quantity needed (tonnes)<input name="need" type="number" min="1" step="1" required placeholder="e.g. 5000"></label>
+<label>Guaranteed price (AED/kg)<input name="price" type="number" min="0.1" step="0.05" required placeholder="e.g. 4.20"></label>
+<label>Needed by<input name="date" type="date"></label>
+<button class="btn" id="gSave">Publish need</button><button class="btn alt" type="button" id="gCancel" style="display:none">Cancel edit</button>
+</form>
+<p class="mute small" id="gRef" style="margin:8px 0 0"></p><p class="gmsg" id="gMsg" role="status"></p></div>
+<div class="card" style="margin-top:14px"><h3>Published needs</h3><div id="gNeeds"></div></div>
+</section>
+
+<section class="sec" id="g-field">
+<div class="head"><div><h2>Alerts and requests <span class="ar">التنبيهات والطلبات</span></h2><p>What farmers are reporting, and the help they ask ADAFSA for.</p></div></div>
+<div class="grid g2">
+<div class="card"><h3>Farmer alerts</h3><div id="gAlerts"></div></div>
+<div class="card"><h3>ADAFSA requests</h3><div id="gReqs"></div></div>
+</div></section>
+<footer class="foot"><span class="ar">سوا</span> · Made for the farmers of the United Arab Emirates · Supporting UAE food security. Sample data shown.</footer>
+</main></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const refs={"Dates (Khalas)":18,"Dates (Fard)":9,"Tomatoes":4.5,"Cucumbers":3.8,"Lemons":6,"Figs":14,"Grapes":12,"Alfalfa":1.2};
+const zones=["Al Ain","Liwa","Al Dhafra","Abu Dhabi","Dubai","Sharjah","Ajman & UAQ","Ras Al Khaimah","Fujairah"];
+let listings=[{crop:"Dates (Khalas)",farmer:"Al Wathba Farm",qty:2400,price:17.5,ok:1,rating:5,rv:214},{crop:"Dates (Fard)",farmer:"Liwa Oasis Co-op",qty:6000,price:9.8,ok:1,rating:4,rv:97},{crop:"Dates (Khalas)",farmer:"Al Ain Palms",qty:1500,price:21.5,ok:1,rating:4,rv:38},{crop:"Tomatoes",farmer:"Al Dhaid Greens",qty:1800,price:3.1,ok:1,rating:4,rv:152},{crop:"Cucumbers",farmer:"Digdaga Farm",qty:1200,price:3.9,ok:1,rating:5,rv:76},{crop:"Lemons",farmer:"Masafi Orchard",qty:900,price:6.2,ok:0,rating:3,rv:12},{crop:"Alfalfa",farmer:"Al Dhafra Fodder",qty:20000,price:1.2,ok:1,rating:4,rv:63},{crop:"Figs",farmer:"RAK Fig Garden",qty:600,price:14.5,ok:1,rating:5,rv:58},{crop:"Grapes",farmer:"Al Ain Vineyards",qty:1000,price:12.5,ok:1,rating:4,rv:38},{crop:"Tomatoes",farmer:"Fujairah Valley",qty:700,price:5.9,ok:0,rating:0,rv:0}];
+const emo={"Dates (Khalas)":"🌴","Dates (Fard)":"🌴","Tomatoes":"🍅","Cucumbers":"🥒","Lemons":"🍋","Figs":"🟣","Grapes":"🍇","Alfalfa":"🌿"};
+const catOf=c=>c.startsWith("Dates")?"Dates":["Tomatoes","Cucumbers"].includes(c)?"Vegetables":["Lemons","Figs","Grapes"].includes(c)?"Fruit":"Fodder";
+const wTypes={"Palm fronds and green waste":{tip:"Cut and stack dry. Do not burn it. Shredded fronds make good compost or mulch.",hz:0},"Plastic sheeting and drip pipe":{tip:"Shake off soil and roll or bundle it. Keep it away from fires and from the wind.",hz:0},"Empty pesticide containers":{tip:"Rinse three times, let them dry, keep the lids on and store them locked away from children and animals.",hz:1},"Fertiliser bags and cardboard":{tip:"Empty the bags fully and keep them dry. Flatten cardboard.",hz:0},"Used oil, filters and batteries":{tip:"Keep in a sealed container off the ground. Do not pour oil on soil or into drains.",hz:1},"Animal and organic waste":{tip:"Keep it covered and away from water sources. Ask about composting before disposal.",hz:0}};
+const abuDhabiZones=["Al Ain","Liwa","Al Dhafra","Abu Dhabi"];
+let wReqs=[];
+let cart=[];
+let mode="p";
+let supplies=[{n:"NPK 20-20-20 Fertilizer",cat:"Fertilizer",by:"Gulf Agro Supplies",unit:"25 kg bag",price:95,ok:1,rating:5,rv:310,e:"🧪"},{n:"Urea 46% Granular",cat:"Fertilizer",by:"Emirates Fertilizer Co.",unit:"50 kg bag",price:120,ok:1,rating:4,rv:188,e:"🧪"},{n:"Organic Date Palm Compost",cat:"Fertilizer",by:"Al Ain Organics",unit:"40 kg bag",price:48,ok:1,rating:4,rv:64,e:"🌱"},{n:"Red Palm Weevil Pheromone Trap",cat:"Biological control",by:"PalmGuard UAE",unit:"each",price:85,ok:1,rating:5,rv:129,e:"🪲",bio:1,target:"Red palm weevil"},{n:"Neem Oil Bio-Pesticide",cat:"Pesticides",by:"Gulf Agro Supplies",unit:"5 L",price:140,ok:1,rating:4,rv:77,e:"🧴",bio:1,target:"Whitefly"},{n:"Bubbler Set for Palms and Trees (20 units)",cat:"Irrigation",by:"AquaFarm Trading",unit:"set",price:320,ok:1,rating:4,rv:55,e:"💧"},{n:"Drip Line 16 mm, 500 m Roll",cat:"Irrigation",by:"AquaFarm Trading",unit:"roll",price:380,ok:1,rating:5,rv:84,e:"💧"},{n:"Predatory Mites for Spider Mites (10,000)",cat:"Biological control",by:"BioShield Gulf",unit:"bottle",price:260,ok:1,rating:5,rv:47,e:"🕷️",bio:1,live:1,target:"Spider mites"},{n:"Trichogramma Wasp Cards, 20 pack",cat:"Biological control",by:"BioShield Gulf",unit:"pack",price:190,ok:1,rating:4,rv:33,e:"🐝",bio:1,live:1,target:"Tomato leafminer"},{n:"Bacillus thuringiensis (Bt), 1 kg",cat:"Biological control",by:"Desert Bio Labs",unit:"1 kg",price:175,ok:1,rating:4,rv:61,e:"🦠",bio:1,target:"Caterpillars"},{n:"Trichoderma Soil Fungus, 1 kg",cat:"Biological control",by:"Desert Bio Labs",unit:"1 kg",price:110,ok:1,rating:4,rv:29,e:"🍄",bio:1,target:"Soil diseases"},{n:"Beauveria bassiana Fungus, 1 L",cat:"Biological control",by:"PalmGuard UAE",unit:"1 L",price:230,ok:1,rating:5,rv:44,e:"🍄",bio:1,target:"Red palm weevil"},{n:"Heat-Tolerant Tomato Seeds",cat:"Seeds",by:"Desert Seeds LLC",unit:"10 g pack",price:55,ok:1,rating:4,rv:92,e:"🌰"},{n:"Drip Irrigation Kit, 1 ha",cat:"Irrigation",by:"AquaFarm Trading",unit:"kit",price:2400,ok:1,rating:4,rv:41,e:"💧"},{n:"Soil Moisture Sensor",cat:"Tools",by:"AgriTech Dubai",unit:"each",price:210,ok:0,rating:0,rv:0,e:"📟"}];
+const cats={p:["Dates","Vegetables","Fruit","Fodder"],s:["Fertilizer","Pesticides","Biological control","Seeds","Irrigation","Tools"]};
+function setMode(m){mode=m;document.querySelectorAll(".modes button").forEach(b=>b.classList.toggle("on",b.dataset.m==m));$("#cat").innerHTML='<option value="">All</option>'+cats[m].map(c=>`<option>${c}</option>`).join("");$("#maxl").textContent=m=="p"?"Max price (AED/kg)":"Max price (AED)";$("#sellBox").style.display=m=="p"?"":"none";$("#supFilters").style.display=m=="p"?"none":"block";$("#q").placeholder=m=="p"?"Search dates, tomatoes, farms":"Search fertilizer, traps, seeds";$("#q").value="";shop()}
+document.querySelectorAll(".modes button").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+function shop(){
+ const q=$("#q").value.toLowerCase(),cat=$("#cat").value,max=+$("#maxp").value||1e9,v=$("#vonly").checked,s=$("#sort").value,P=mode=="p";
+ const src=P?listings.map((l,i)=>({...l,i,name:l.crop,by:l.farmer,c:catOf(l.crop)})):supplies.map((l,i)=>({...l,i,name:l.n,c:l.cat}));
+ let a=src.filter(l=>(!cat||l.c==cat)&&(l.name+" "+l.by).toLowerCase().includes(q)&&l.price<=max&&(!v||l.ok)&&(P||!$("#supSel").value||l.by==$("#supSel").value)&&(P||!$("#tgtSel").value||l.target==$("#tgtSel").value)&&(P||!$("#bioOnly").checked||l.bio));
+ if(s=="lo")a.sort((x,y)=>x.price-y.price);if(s=="hi")a.sort((x,y)=>y.price-x.price);if(s=="rt")a.sort((x,y)=>(y.rating||0)-(x.rating||0));
+ $("#resCount").textContent=a.length+" results";
+ $("#listings").innerHTML=a.length?a.map(l=>{const pp=l.price.toFixed(2).split("."),r=l.rating||0,st=r?"★".repeat(r)+"☆".repeat(5-r)+" <span>("+l.rv+")</span>":"<span>New seller</span>";let mid;
+  if(P){const [c,t]=check(l);mid=`<div><span class="tag ${c} small">${t}</span> <span class="mute small">Ref ${refs[l.crop].toFixed(2)}</span></div><div class="small ${l.ok?'ok':'warn'}">${l.ok?"Verified seller · escrow payment":"Verification pending"}</div><div class="small mute">${cold(l.crop)?"Cold truck pickup":"Standard truck pickup"}</div>`}
+  else mid=`<div class="small ${l.ok?'ok':'warn'}">${l.ok?"Registered supplier · escrow payment":"Verification pending"}</div>${l.c=="Pesticides"?'<div class="small warn">Spraying? Warn nearby farms first.</div>':''}${l.bio?'<div><span class="tag ok small">Biological control</span></div>':''}${l.target?'<div class="small mute">Controls: '+l.target+'</div>':''}${l.live?'<div class="small warn">Live product, cold truck delivery</div>':''}<div class="small mute">Delivery arranged by SAWA logistics</div>`;
+  return`<div class="pc"><div class="pimg">${P?emo[l.crop]:l.e}</div><div class="pb"><div class="pt">${esc(l.name)}${P?", "+l.qty.toLocaleString()+" kg available":""}</div><div class="mute small">Sold by ${esc(l.by)}${P?"":" · "+l.unit}</div><div class="stars">${st}</div><div class="price"><sup>AED</sup>${pp[0]}<sup>${pp[1]}</sup> <small>/ ${P?"kg":l.unit}</small></div>${mid}<div style="flex:1"></div><button class="amz" onclick="addCart(${l.i})">Add to cart</button></div></div>`}).join(""):'<p class="mute">Nothing matches. Clear a filter or search for another item.</p>';
+}
+function addCart(i){const P=mode=="p",l=P?listings[i]:supplies[i],id=mode+i,k=cart.find(c=>c.id==id);if(k)k.q+=P?10:1;else cart.push({id,name:P?l.crop:l.n,by:P?l.farmer:l.by,price:l.price,q:P?10:1,u:P?"kg":"unit"});drawCart()}
+function drawCart(){
+ $("#cartN").textContent=cart.length;const t=cart.reduce((a,c)=>a+c.q*c.price,0);
+ $("#cartBox").innerHTML=cart.length?`<h3>Your cart</h3>`+cart.map((c,x)=>`<div class="alert" style="padding:8px 0"><span>${esc(c.name)} from ${esc(c.by)}: ${c.q} ${c.u}</span><span>AED ${(c.q*c.price).toFixed(2)} <button class="btn alt" onclick="cart.splice(${x},1);drawCart()">Remove</button></span></div>`).join("")+`<p><b>Total AED ${t.toFixed(2)}</b></p><button class="amz" onclick="cart=[];drawCart();$('#cartBox').innerHTML='<b class=ok>Payment held in escrow. Sellers have been notified.</b>'">Pay into escrow</button>`:'<p class="mute">Your cart is empty. Add an item to start.</p>';
+}
+let alerts=[{type:"Pesticide drift",zone:"Al Ain",note:"Spray from neighbouring plot reached our date palms this morning.",by:"Al Qua'a Farm",n:7,sev:"bad"},{type:"Pest outbreak",zone:"Ras Al Khaimah",note:"Red palm weevil found in 3 trees. Check trunks.",by:"Digdaga Farm",n:12,sev:"warn"}];
+let demand=[{c:"Dates (Khalas)",need:8000,got:5200,price:17,by:"30 Nov"},{c:"Tomatoes",need:3000,got:1100,price:4.2,by:"15 Dec"},{c:"Alfalfa",need:12000,got:9000,price:1.15,by:"31 Dec"},{c:"Cucumbers",need:2000,got:600,price:3.6,by:"20 Dec"},{c:"Figs",need:1500,got:400,price:13.5,by:"30 Nov"},{c:"Grapes",need:2500,got:900,price:11.5,by:"15 Nov"}];
+let pickups=[{crop:"Dates (Khalas)",farm:"Al Qua'a Farm",zone:"Al Ain",qty:2400,ready:"2026-10-12",done:false},{crop:"Dates (Fard)",farm:"Al Ain Palms",zone:"Al Ain",qty:1500,ready:"2026-10-12",done:false},{crop:"Tomatoes",farm:"Al Jimi Greens",zone:"Al Ain",qty:1100,ready:"2026-10-13",done:false},{crop:"Dates (Fard)",farm:"Liwa Oasis Co-op",zone:"Liwa",qty:6000,ready:"2026-10-15",done:false},{crop:"Tomatoes",farm:"Al Dhaid Greens",zone:"Sharjah",qty:1800,ready:"2026-10-09",done:false},{crop:"Figs",farm:"Masafi Fig Garden",zone:"Ras Al Khaimah",qty:800,ready:"2026-10-10",done:false},{crop:"Alfalfa",farm:"Al Dhafra Fodder",zone:"Al Dhafra",qty:9000,ready:"2026-10-14",done:false}];
+const stages=["Ready for pickup","Truck assigned","Picked up"];
+const layers={et:{u:"mm / dekad",v:[62,18,24,31,28,35,40,52,58]},biomass:{u:"kg / ha / day",v:[88,20,30,34,26,38,44,60,70]},wp:{u:"kg / m³",v:[1.6,0.5,0.7,0.9,0.8,1.0,1.1,1.4,1.5]}};
+const pos=[[400,170],[250,250],[130,170],[210,110],[330,70],[420,70],[500,70],[570,50],[570,130]];
+const tabs=[["overview","Overview","نظرة عامة","🏠"],["market","Marketplace","السوق","🛒"],["alerts","Alerts","التنبيهات","🔔"],["gov","Country needs","احتياجات الدولة","🏛️"],["logistics","Pickup","النقل","🚛"],["waste","Waste (Tadweer)","إدارة النفايات","♻️"],["land","Land & water","الأرض والمياه","🛰️"],["guides","Crop guides","أدلة المحاصيل","📖"],["help","Help & AI","المساعدة","💬"]];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const isDate=c=>c.startsWith("Dates");
+function go(id){document.querySelectorAll(".sec").forEach(s=>s.classList.toggle("on",s.id===id));document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-current",b.dataset.t===id));render()}
+tabs.forEach(([id,l,ar,ic])=>{const b=document.createElement("button");b.innerHTML=`<span style="font-size:18px">${ic}</span><span>${l}<small>${ar}</small></span>`;b.title=l;b.dataset.t=id;b.className="fnav";b.onclick=()=>go(id);$("#nav").appendChild(b);const h=document.querySelector("#"+id+" .head h2");if(h&&id!="overview")h.insertAdjacentHTML("beforeend"," <span class=\"ar\">"+ar+"</span>")});
+
+[["g-over","Overview","نظرة عامة","📊"],["g-needs","Set country needs","احتياجات الدولة","🏛️"],["g-field","Alerts & requests","التنبيهات والطلبات","🔔"]].forEach(([id,l,ar,ic])=>{const b=document.createElement("button");b.innerHTML=`<span style="font-size:18px">${ic}</span><span>${l}<small>${ar}</small></span>`;b.title=l;b.dataset.t=id;b.className="gnav";b.onclick=()=>go(id);$("#nav").appendChild(b)});
+const app=document.querySelector(".app"),tg=document.createElement("button");tg.id="navToggle";tg.style.marginTop="14px";
+function setMin(m){app.classList.toggle("min",m);tg.innerHTML=`<span style="font-size:16px">${m?"▶":"◀"}</span><span>Collapse<small>طي القائمة</small></span>`;tg.setAttribute("aria-expanded",String(!m));tg.title=m?"Expand sidebar":"Collapse sidebar";try{localStorage.setItem("sawaNav",m?"1":"0")}catch(e){}}
+tg.onclick=()=>setMin(!app.classList.contains("min"));$("#nav").appendChild(tg);
+let m0=false;try{m0=localStorage.getItem("sawaNav")=="1"}catch(e){}setMin(m0);
+$("#cropSel").innerHTML=$("#pickCrop").innerHTML=Object.keys(refs).map(c=>`<option>${c}</option>`).join("");
+$("#zoneSel").innerHTML=zones.map(z=>`<option>${z}</option>`).join("");
+function check(l){const r=refs[l.crop],d=(l.price-r)/r;return d>.15?['bad','Above market']:d<-.25?['warn','Unusually low']:['ok','Fair price']}
+function render(){
+ const dq=pickups.filter(p=>isDate(p.crop)&&!p.done).reduce((a,p)=>a+p.qty,0);
+ $("#dateNote").textContent=dq.toLocaleString()+" kg of dates are waiting for pickup.";
+ $("#kpis").innerHTML=[[listings.length,"Open listings"],[alerts.length,"Active farmer alerts"],[demand.length,"Commodities requested"],[pickups.filter(p=>!p.done).length,"Pickups in progress"]].map(k=>`<div class="card kpi"><b>${k[0]}</b><span>${k[1]}</span></div>`).join("");
+ const a=alerts[0];$("#ovAlert").innerHTML=a?`<p><span class="tag ${a.sev}">${esc(a.type)}</span> ${esc(a.zone)}</p><p>${esc(a.note)}</p>`:'<p class="mute">No alerts. Send one if you see a problem.</p>';
+ $("#ovDemand").innerHTML=demand.slice(0,3).map(d=>`<div>${esc(d.c)} <span class="mute">${Math.round(d.got/d.need*100)}% filled</span><div class="bar"><i style="width:${d.got/d.need*100}%"></i></div></div>`).join("");
+ shop();
+ $("#alertList").innerHTML=alerts.length?alerts.map((a,i)=>`<div class="alert"><div><span class="tag ${a.sev}">${esc(a.type)}</span> <b>${esc(a.zone)}</b><p style="margin:4px 0 0">${esc(a.note)}</p><span class="mute" style="font-size:13px">Reported by ${esc(a.by)} · ${a.n} farmers confirmed</span></div><button class="btn alt" onclick="alerts[${i}].n++;render()">I saw this too</button></div>`).join(""):'<p class="mute">No alerts yet.</p>';
+ $("#demandList").innerHTML=demand.map((d,i)=>`<div class="card"><h3>${esc(d.c)}</h3><p class="mute" style="margin:2px 0">Guaranteed ${d.price.toFixed(2)} AED/kg · needed by ${d.by}</p><div class="bar"><i style="width:${Math.min(100,d.got/d.need*100)}%"></i></div><p style="margin:2px 0 10px">${d.got.toLocaleString()} of ${d.need.toLocaleString()} t pledged</p><button class="btn" onclick="demand[${i}].got=Math.min(demand[${i}].need,demand[${i}].got+100);render()">Pledge 100 t</button></div>`).join("");
+ drawRoutes();
+ const L=layers[$("#layer").value],mx=Math.max(...L.v);$("#unit").textContent=L.u;
+ drawMap(L,mx);suitUI();drawGov();drawWaste();
+}
+$("#layer").onchange=render;["#q","#cat","#sort","#maxp","#vonly","#supSel","#tgtSel","#bioOnly"].forEach(x=>{$(x).oninput=shop;$(x).onchange=shop});$("#cartBtn").onclick=()=>{drawCart();$("#cartBox").classList.toggle("on")};
+$("#listForm").onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);listings.unshift({crop:f.get("crop"),farmer:f.get("farmer"),qty:+f.get("qty"),price:+f.get("price"),ok:0,rating:0,rv:0});e.target.reset();render()};
+$("#alertForm").onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);alerts.unshift({type:f.get("type"),zone:f.get("zone"),note:f.get("note"),by:"You",n:1,sev:f.get("type")=="Pesticide drift"?"bad":"warn"});e.target.reset();render()};
+$("#pickForm").onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);pickups.push({crop:f.get("crop"),farm:f.get("farm"),zone:f.get("zone"),qty:+f.get("qty"),ready:f.get("ready"),done:false});e.target.reset();render()};
+
+/* ---- pickup routes */
+const PER=["Tomatoes","Cucumbers","Lemons","Figs","Grapes"],cold=c=>PER.includes(c);
+const CAP=12000,DR=["Saeed","Khalid","Omar","Rashid","Hamad","Majid","Yousef","Ali","Salem"];
+function routes(){const out=[];zones.forEach(z=>{pickups.filter(p=>p.zone==z).sort((a,b)=>a.ready<b.ready?-1:a.ready>b.ready?1:0).forEach(p=>{let cur=out.filter(r=>r.zone==z).pop();if(!cur||cur.load+p.qty>CAP){cur={zone:z,n:out.filter(r=>r.zone==z).length,stops:[],load:0};out.push(cur)}cur.stops.push(p);cur.load+=p.qty})});return out}
+function nextStop(zi,n){const r=routes().find(r=>r.zone==zones[zi]&&r.n==n);const p=r&&r.stops.find(p=>!p.done);if(p)p.done=true;render()}
+function drawRoutes(){
+ const R=routes();
+ $("#pickups").innerHTML=R.length?R.map(r=>{const zi=zones.indexOf(r.zone),cd=r.stops.some(p=>cold(p.crop)),dn=r.stops.filter(p=>p.done).length,all=dn==r.stops.length,st=all?"Heading to market":dn?"On route":"Driver accepted",c=all?"ok":dn?"warn":"ok",date=r.stops.some(p=>isDate(p.crop));
+ return`<div class="card" ${date?'style="border-left:4px solid var(--date)"':''}><h3>${esc(r.zone)} route</h3><span class="tag ${cd?'ok':'mute'}" style="margin:2px 0 4px;display:inline-block">${cd?"❄ Cold truck":"Standard truck, no cooling"}</span><p class="mute" style="margin:2px 0;font-size:13.5px">TRK-${200+zi*10+r.n} · Driver ${DR[(zi+r.n)%DR.length]} accepted · ${r.stops.length} farm${r.stops.length>1?"s share":" uses"} this truck</p><div class="bar"><i style="width:${Math.min(100,r.load/CAP*100)}%"></i></div><span class="mute" style="font-size:13px">${r.load.toLocaleString()} of ${CAP.toLocaleString()} kg loaded</span><ol class="stops">${r.stops.map((p,k)=>`<li>${p.done?"✓":k+1}. <b>${esc(p.farm)}</b> · ${esc(p.crop)}${cold(p.crop)?" ❄":""} · ${p.qty.toLocaleString()} kg <span class="mute">· ready ${p.ready}</span></li>`).join("")}</ol><span class="tag ${c}">${st}</span> ${all?"":`<button class="btn alt" onclick="nextStop(${zi},${r.n})">Mark next stop picked up</button>`}</div>`}).join(""):'<p class="mute">No pickups yet. Mark a crop ready below.</p>';
+}
+
+/* ---- suitability */
+const suit={"Al Ain":{Dates:"High",Figs:"High",Grapes:"High",Tomatoes:"High",Lemons:"High",Alfalfa:"Medium"},"Liwa":{Dates:"High",Alfalfa:"Medium"},"Al Dhafra":{Dates:"High",Alfalfa:"High"},"Abu Dhabi":{Dates:"Medium",Figs:"Medium",Tomatoes:"Medium",Cucumbers:"Medium"},"Dubai":{Tomatoes:"Medium",Cucumbers:"Medium"},"Sharjah":{Grapes:"Medium",Tomatoes:"High",Cucumbers:"High"},"Ajman & UAQ":{Tomatoes:"Medium",Cucumbers:"High"},"Ras Al Khaimah":{Figs:"High",Grapes:"High",Tomatoes:"High",Cucumbers:"High",Lemons:"High",Dates:"Medium"},"Fujairah":{Figs:"High",Grapes:"Medium",Tomatoes:"High",Lemons:"High",Cucumbers:"Medium"}};
+const cropsL=["Dates","Figs","Grapes","Alfalfa","Tomatoes","Cucumbers","Lemons"];let selZone=null,selCrop=null;
+function pickZone(i){selZone=selZone==i?null:i;selCrop=null;render()}
+function pickCrop(c){selCrop=selCrop==c?null:c;selZone=null;render()}
+const UAE={"H":601,"land":"M413.0 26.7L397.4 15.5L360.2 0.0L472.9 0.0L444.9 20.0L427.5 27.2L413.0 26.7ZM21.9 128.4L10.9 164.3L26.6 230.2L23.8 242.5L0.0 286.8L0.0 97.4L18.2 111.5L21.9 128.4ZM18.1 337.3L18.2 330.3L26.4 332.9L29.9 362.5L150.3 519.9L470.4 562.9L475.8 555.8L477.6 509.9L520.3 408.3L512.3 382.1L527.4 371.5L545.8 367.2L560.5 369.0L576.7 363.1L572.4 352.6L558.3 353.0L548.8 344.8L554.9 325.1L549.8 306.3L555.0 285.2L553.7 252.9L565.9 238.3L582.8 235.1L591.3 241.1L593.9 250.7L590.7 259.9L597.1 267.0L626.6 235.7L636.8 233.9L639.3 240.8L636.6 245.6L647.8 277.2L667.0 311.6L700.0 354.0L700.0 600.9L0.0 600.9L0.0 332.9L18.1 337.3ZM592.6 264.2L581.7 257.3L590.4 270.3L592.6 264.2ZM624.3 65.0L633.7 48.0L638.0 48.8L638.5 82.6L633.0 125.1L623.6 145.1L629.5 148.4L624.4 155.7L616.6 157.1L606.1 153.5L598.1 144.0L602.3 96.2L593.6 95.7L589.5 90.5L610.6 65.8L624.3 65.0ZM522.1 0.0L555.8 0.0L512.1 16.3L497.8 15.0L495.9 5.9L522.1 0.0ZM606.0 206.8L613.9 188.3L624.6 190.0L628.4 197.6L626.5 208.5L616.5 215.0L608.6 212.6L606.0 206.8Z","paths":["M562.3 287.4L554.9 299.3L556.8 317.8L561.4 322.9L560.9 329.7L554.4 345.1L563.9 347.7L573.1 344.9L576.9 346.5L585.2 366.0L560.9 376.3L555.2 373.4L540.5 373.8L516.3 382.5L516.9 387.0L525.7 394.9L526.7 409.5L519.1 422.6L514.9 439.9L505.9 451.5L499.0 478.6L486.9 500.1L482.5 517.7L482.0 558.5L471.6 570.1L423.5 563.6L426.4 489.1L458.2 391.3L473.5 328.4L472.0 277.7L477.0 291.0L483.7 294.2L514.2 292.3L543.6 278.3L560.0 280.5L562.3 287.4Z","M357.3 554.6L243.7 539.3L235.8 510.7L236.8 488.1L243.7 466.9L256.0 448.8L278.7 432.1L305.5 426.3L332.2 432.1L355.0 448.8L370.1 473.7L374.1 488.1L375.1 510.7L370.1 532.5L363.7 545.8L357.3 554.6Z","M423.5 563.6L357.3 554.6L367.2 539.4L374.1 518.1L375.1 495.6L370.1 473.7L359.6 454.4L349.9 443.7L332.2 432.1L312.3 426.6L291.8 427.7L272.5 435.3L261.0 443.7L247.3 460.4L240.8 473.7L235.8 495.6L236.8 518.1L243.7 539.3L147.4 525.7L24.6 366.4L22.0 359.5L21.6 341.5L24.3 337.6L24.4 331.4L22.1 326.4L24.7 323.5L28.5 329.9L29.8 345.6L31.7 346.8L34.7 338.5L39.4 346.4L45.7 336.7L48.3 340.7L47.5 355.9L50.8 374.8L52.1 377.2L62.8 378.7L67.3 382.3L67.6 379.0L70.4 378.6L78.5 378.8L84.9 382.4L96.2 382.0L119.8 376.3L149.5 356.1L150.3 349.5L152.8 348.1L163.1 357.7L181.7 356.1L196.9 358.1L204.4 354.2L212.2 360.3L217.3 358.1L222.3 360.4L224.4 359.9L221.8 354.2L224.7 353.5L235.9 363.5L260.4 360.6L264.6 364.2L269.7 363.8L278.7 370.8L287.3 370.6L293.1 367.5L315.5 368.3L324.7 362.8L348.1 356.1L375.5 398.3L458.2 384.3L473.5 328.4L458.2 391.3L426.4 489.1L423.5 563.6ZM283.5 353.3L295.6 345.2L301.7 345.6L311.6 338.9L313.5 344.5L325.1 349.2L326.4 353.2L324.7 356.4L316.2 357.6L310.2 352.5L309.8 356.1L302.2 359.2L283.5 353.3ZM238.8 337.0L237.5 339.1L227.1 338.0L228.4 335.0L234.4 335.7L245.6 330.4L250.3 332.7L249.7 328.3L256.7 319.6L260.5 324.3L258.1 331.4L247.6 335.6L244.7 340.6L238.8 337.0ZM213.7 258.1L211.7 255.3L211.4 252.5L213.7 252.8L213.7 258.1ZM157.1 326.1L158.9 334.1L151.7 341.9L147.4 331.7L154.1 325.2L157.1 326.1ZM117.9 310.2L112.4 307.9L115.8 301.9L118.7 303.9L117.9 310.2ZM79.5 343.5L77.4 347.9L75.6 346.7L77.0 342.0L79.5 343.5Z","M348.1 356.1L354.7 348.9L363.1 346.4L372.0 339.5L379.6 341.8L385.3 336.5L392.7 323.1L392.4 317.9L394.5 316.9L392.7 314.9L399.7 316.9L396.3 311.1L404.0 314.9L403.6 311.2L394.5 309.1L384.0 302.6L388.4 299.6L390.1 302.6L392.7 297.7L399.3 307.7L402.3 307.2L399.7 305.2L405.0 306.3L411.9 293.8L409.3 290.5L416.3 284.3L412.8 272.7L420.9 265.0L426.9 266.6L429.4 263.5L427.6 261.3L458.9 241.8L472.0 277.7L473.5 328.4L458.2 384.3L375.5 398.3L348.1 356.1ZM373.5 314.0L381.3 304.3L381.4 309.8L390.8 317.9L373.5 314.0ZM373.6 326.5L370.2 333.5L366.7 327.4L370.5 327.7L368.1 323.6L373.6 326.5ZM361.4 338.0L353.7 332.4L356.8 327.9L360.5 327.4L365.7 335.0L361.4 338.0ZM361.4 208.4L356.1 205.2L357.8 202.7L360.3 203.6L361.4 208.4ZM355.2 345.6L343.8 335.7L348.3 331.7L354.9 338.6L355.2 345.6Z","M607.3 262.2L600.5 274.6L595.2 275.3L598.9 262.7L607.3 262.2ZM458.9 241.8L478.2 224.1L494.1 201.2L498.7 206.1L496.5 210.5L500.0 209.4L496.8 198.0L499.5 194.7L506.3 196.7L515.3 194.7L538.2 214.6L541.9 230.8L537.0 237.7L542.1 251.2L544.3 276.6L514.2 292.3L478.6 293.1L458.9 241.8Z","M629.9 196.5L618.6 191.3L620.1 187.4L631.9 178.4L631.3 186.3L634.2 192.7L629.9 196.5ZM634.2 240.6L627.3 241.4L625.7 247.4L623.2 246.7L621.4 244.4L624.5 235.7L621.8 226.6L631.6 228.0L634.2 240.6ZM582.4 241.5L572.3 242.0L559.9 253.5L560.0 280.5L543.6 278.3L544.9 269.8L542.3 252.2L537.0 237.7L541.9 229.9L536.7 211.7L515.3 194.7L506.3 196.7L499.5 194.7L504.4 192.3L504.7 187.5L507.4 187.7L512.2 182.4L523.5 186.7L535.8 186.6L538.1 179.2L520.8 173.3L523.7 165.9L549.2 180.8L556.7 187.8L562.9 198.8L573.3 196.3L573.6 189.3L578.4 192.0L581.1 183.8L585.6 184.3L581.0 194.7L583.7 206.1L579.3 211.5L582.7 217.3L578.9 227.7L582.4 241.5ZM620.3 198.3L621.5 201.9L618.9 202.8L618.5 199.0L620.3 198.3ZM606.3 230.1L617.7 240.8L620.5 249.6L617.6 252.3L609.2 250.0L609.5 242.2L604.8 232.6L606.3 230.1Z","M585.1 192.1L585.8 195.5L582.6 198.2L581.2 193.0L585.1 192.1ZM514.8 179.9L516.1 181.7L518.3 179.9L520.8 173.3L538.6 179.8L534.2 187.3L515.2 184.4L512.2 182.4L514.8 179.9ZM523.7 165.9L530.5 155.9L528.0 163.6L537.9 162.6L541.8 154.0L553.1 145.0L559.6 149.0L564.8 169.7L571.3 177.9L570.3 182.6L576.3 189.0L573.4 189.8L574.0 195.8L561.7 198.3L555.1 186.0L523.7 165.9Z","M615.2 193.9L616.6 198.7L612.0 201.9L611.8 205.9L605.8 207.4L604.8 232.6L609.5 242.2L609.2 250.0L617.6 252.3L620.4 255.5L613.9 260.7L598.9 262.7L588.7 254.0L586.2 243.7L582.4 241.5L578.9 227.7L582.7 217.3L579.3 211.5L583.7 206.1L601.4 206.5L608.3 196.3L601.8 194.3L604.6 191.1L615.2 193.9ZM604.7 87.4L608.8 95.8L607.2 115.0L603.2 122.6L607.3 130.6L603.4 135.2L604.9 145.6L593.6 148.1L581.1 157.0L583.5 168.7L599.4 168.3L601.7 172.5L597.1 179.2L602.0 181.8L602.8 185.6L596.6 189.8L582.1 183.3L578.4 192.0L570.3 182.6L571.3 177.9L564.8 169.7L560.3 150.1L553.1 145.0L569.9 134.2L580.3 122.5L577.5 129.0L579.4 129.7L581.1 121.0L589.4 111.7L590.7 107.1L586.4 110.8L595.3 89.3L604.7 87.4Z","M615.5 208.1L629.3 200.3L634.2 192.7L631.6 228.0L621.8 226.6L624.5 235.7L619.9 246.1L617.7 240.8L606.3 230.1L604.9 224.9L605.8 207.4L611.8 205.9L615.5 208.1ZM618.6 191.3L611.6 194.6L610.2 191.9L603.6 191.8L601.8 194.3L608.3 196.3L600.6 206.9L583.7 206.1L582.6 198.2L586.3 194.0L583.3 191.2L585.6 184.3L596.6 189.8L602.8 185.6L602.0 181.8L597.1 179.2L601.4 173.7L601.0 170.5L598.2 167.4L583.5 168.7L581.6 155.0L588.3 153.1L593.6 148.1L604.9 145.6L611.6 151.2L621.0 149.9L628.7 153.1L632.5 164.1L631.9 178.4L620.1 187.4L618.6 191.3ZM625.5 249.9L620.4 255.5L617.6 252.3L618.5 249.4L625.5 249.9Z"],"labels":[{"x":553.6,"y":433.2,"t":null},{"x":305.5,"y":510.1,"t":null},{"x":140.0,"y":433.2,"t":null},{"x":254.5,"y":188.7,"t":[394.5,307.5]},{"x":356.4,"y":104.8,"t":[496.4,220.8]},{"x":451.8,"y":55.9,"t":[528.2,195.7]},{"x":528.2,"y":21.0,"t":[553.6,174.7]},{"x":623.6,"y":55.9,"t":[585.5,132.8]},{"x":655.5,"y":328.4,"t":[610.9,216.6]}],"nb":[["Arabian Gulf",152.7,139.8],["Gulf of Oman",661.8,244.6],["Saudi Arabia",127.3,559.0],["Oman",636.4,461.2],["Qatar",28.0,174.7]]};
+function drawMap(L,mx){
+ let h=`<rect width="700" height="${UAE.H}" rx="8" fill="#9ec3d6" fill-opacity=".3"/><path d="${UAE.land}" fill="var(--line)" fill-opacity=".85" stroke="var(--line)" stroke-width="1.5"/>`;
+ UAE.nb.forEach(n=>h+=`<text x="${n[1]}" y="${n[2]}" text-anchor="middle" style="fill:var(--mute);font-style:italic;font-size:11px">${n[0]}</text>`);
+ const on=i=>selZone==i||(selCrop&&suit[zones[i]][selCrop]);
+ zones.forEach((z,i)=>{const o=.2+.8*L.v[i]/mx;h+=`<path d="${UAE.paths[i]}" role="button" tabindex="0" aria-label="${z}" onclick="pickZone(${i})" onkeydown="if(event.key=='Enter')pickZone(${i})" style="cursor:pointer" fill="var(--brand)" fill-opacity="${o}" stroke="var(--card)" stroke-width="1" stroke-linejoin="round"/>`});
+ zones.forEach((z,i)=>{if(on(i))h+=`<path d="${UAE.paths[i]}" fill="none" stroke="var(--date)" stroke-width="3" stroke-linejoin="round" style="pointer-events:none"/>`});
+ zones.forEach((z,i)=>{const l=UAE.labels[i];h+=(l.t?`<line x1="${l.x}" y1="${l.y+18}" x2="${l.t[0]}" y2="${l.t[1]}" stroke="var(--mute)" stroke-width="1"/><circle cx="${l.t[0]}" cy="${l.t[1]}" r="2.5" fill="var(--ink)"/>`:'')+`<text x="${l.x}" y="${l.y}" text-anchor="middle" font-weight="600" style="paint-order:stroke;stroke:var(--card);stroke-width:3px;pointer-events:none">${z}</text><text x="${l.x}" y="${l.y+14}" text-anchor="middle" style="paint-order:stroke;stroke:var(--card);stroke-width:3px;pointer-events:none">${L.v[i]}</text>`});
+ $("#map").innerHTML=h}
+function suitUI(){
+ $("#cropChips").innerHTML=cropsL.map(c=>`<button class="${selCrop==c?'on':''}" onclick="pickCrop('${c}')">${c}</button>`).join("");
+ const row=(a,l)=>`<div class="alert" style="padding:6px 0"><span>${a}</span><span class="tag ${l=="High"?"ok":"warn"}">${l} suitability</span></div>`;
+ $("#suitBox").innerHTML=selCrop?`<h3 style="margin-top:12px">Where ${selCrop} grows well</h3>`+zones.filter(z=>suit[z][selCrop]).map(z=>row(z,suit[z][selCrop])).join(""):selZone!=null?`<h3 style="margin-top:12px">Best crops in ${zones[selZone]}</h3>`+Object.entries(suit[zones[selZone]]).map(([c,l])=>row(c,l)).join(""):'<p class="mute">Tap a zone on the map, or pick a crop, to see what suits where.</p>';
+}
+
+/* ---- crop guides */
+const guides=[
+{m:1,c:"Dates",ar:"نخيل التمر",e:"🌴",s:[["Plant","Offshoots or tissue-culture palms in spring or early autumn, about 8 m apart. Shade young palms and water them daily."],["Water","Drip or bubblers at the base of each palm, with more water in summer. Check soil moisture first, because salty water builds up in the soil."],["Feed","Compost every year plus balanced NPK split into 2 or 3 doses."],["Protect","Inspect the crown and trunk weekly for red palm weevil. Use pheromone traps and warn neighbours at once."],["Harvest","Pollinate by hand in late winter, thin the bunches, cover them, and pick at the stage your buyer wants."]]},
+{m:1,c:"Figs",ar:"تين",e:"🟣",s:[["Plant","Plant dormant cuttings or young trees from December to February, about 4 to 5 m apart."],["Water","Regular watering by drip or bubbler. Do not let the soil dry out while fruit is growing."],["Feed","Compost each year plus a balanced fertiliser in spring."],["Protect","Fruit flies and birds. Use traps and nets, and remove fallen fruit."],["Harvest","Pick soft, ripe fruit by hand. Figs spoil fast, so cool them straight away."]]},
+{m:1,c:"Grapes",ar:"عنب",e:"🍇",s:[["Plant","Grafted vines or dormant cuttings in winter, trained on a trellis."],["Water","Drip irrigation. Reduce water a little before harvest for sweeter fruit."],["Feed","Balanced feed with extra potassium during fruit set."],["Protect","Powdery mildew and birds. Prune in winter for good airflow."],["Harvest","Pick when sweet, handle gently and cool quickly."]]},
+{c:"Tomatoes",ar:"طماطم",e:"🍅",s:[["Plant","Transplant seedlings from October to February outdoors. Use cooled greenhouses to extend the season."],["Water","Small, frequent drip watering with mulch to keep roots cool."],["Feed","Balanced feed early, then more potassium once fruit sets."],["Protect","Watch for tomato leafminer and whitefly. Use nets and sticky traps, and rotate crops."],["Harvest","About 70 to 90 days after transplanting. Pick at first colour for transport."]]},
+{c:"Cucumbers",ar:"خيار",e:"🥒",s:[["Plant","Grow in greenhouse or shade net on trellises."],["Water","Steady drip watering. Never let the bed dry out."],["Feed","Nitrogen early, potassium once fruit is growing."],["Protect","Powdery mildew and spider mites. Keep air moving and check leaf undersides."],["Harvest","First pick about 45 to 60 days after sowing, then every 1 to 2 days."]]},
+{c:"Lemons",ar:"ليمون",e:"🍋",s:[["Plant","October to November on a salt-tolerant rootstock. Shade young trees."],["Water","Deep, less frequent watering with drip or bubblers."],["Feed","Citrus fertiliser with zinc and iron."],["Protect","Citrus leafminer and scale insects. Check new leaves each week."],["Harvest","Most fruit ripens from November to March."]]},
+{m:1,c:"Alfalfa",ar:"برسيم حجازي",e:"🌿",s:[["Plant","Sow in October or November using a salt-tolerant variety."],["Water","Uses a lot of water, so use bubblers or drip lines and check current water-use rules before planting."],["Feed","Phosphorus and potassium. Little nitrogen is needed."],["Protect","Aphids and weeds in young stands."],["Harvest","Cut at about 10% flowering, roughly every 4 weeks."]]}];
+function drawGuides(){$("#guideList").innerHTML=guides.map((g,i)=>`<details class="card g"><summary><b>${g.e} ${g.c}</b> <span class="mute">${g.ar}</span> ${g.m?'<span class="tag ok" style="font-size:12px">Major crop</span>':""}</summary>${g.s.map(x=>`<div class="stp"><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")}<p class="mute" style="font-size:13px">General guidance. Confirm details for your farm with ADAFSA.</p><button class="btn alt" onclick="askAbout(${i})">Ask SAWA AI about ${g.c}</button></details>`).join("")}
+function askAbout(i){go("help");const g=guides[i];ask(lang=="ar"?"كيف أزرع "+g.ar+" في الإمارات؟":"How do I grow "+g.c.toLowerCase()+" in the UAE?")}
+
+/* ---- AI assistant with speech */
+let lang="en",hist=[];
+const QP={en:["When should I plant tomatoes?","My date palm leaves are turning yellow","How do I spot red palm weevil?"],ar:["متى أزرع الطماطم؟","أوراق نخلتي تصفرّ، ما السبب؟","كيف أكتشف سوسة النخيل الحمراء؟"]};
+const WEL={en:"Ask me about planting, watering, pests or harvest. You can type or use the microphone.",ar:"اسألني عن الزراعة أو الري أو الآفات أو الحصاد. يمكنك الكتابة أو استخدام الميكروفون."};
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function addMsg(r,t){const d=document.createElement("div");d.className="m "+r;d.textContent=t;d.dir="auto";$("#chatLog").appendChild(d);$("#chatLog").scrollTop=1e9;return d}
+function setLang(l){lang=l;document.querySelectorAll("[data-l]").forEach(b=>b.classList.toggle("on",b.dataset.l==l));$("#chatIn").placeholder=l=="ar"?"اكتب سؤالك عن الزراعة":"Ask a farming question";$("#chatIn").dir=l=="ar"?"rtl":"ltr";$("#sendBtn").textContent=l=="ar"?"إرسال":"Send";$("#chips").innerHTML=QP[l].map((q,i)=>`<button onclick="ask(QP[lang][${i}])">${q}</button>`).join("");addMsg("a",WEL[l])}
+function speak(t){if(!window.speechSynthesis||!$("#speakOn").checked)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=lang=="ar"?"ar-SA":"en-GB";const v=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith(lang));if(v)u.voice=v;speechSynthesis.speak(u)}
+function mic(){if(!SR)return;const r=new SR();r.lang=lang=="ar"?"ar-AE":"en-US";r.interimResults=false;$("#micBtn").classList.add("on");r.onresult=e=>ask(e.results[0][0].transcript);r.onend=()=>$("#micBtn").classList.remove("on");r.onerror=e=>{$("#micBtn").classList.remove("on");addMsg("a",lang=="ar"?"تعذر استخدام الميكروفون هنا. اكتب سؤالك.":"The microphone is blocked here. Type your question instead.")};try{r.start()}catch(e){$("#micBtn").classList.remove("on")}}
+async function ask(text){
+ text=(text||"").trim();if(!text)return;$("#chatIn").value="";addMsg("u",text);hist.push({role:"user",content:text});
+ const b=addMsg("a","…");let sample=null;
+ try{sample=window.claude?await claude.use("sample"):null}catch(e){}
+ if(!sample){b.textContent=lang=="ar"?"المساعد غير متاح في هذا العرض.":"The assistant is not available in this view.";return}
+ const sys="You are SAWA AI, a practical agronomy assistant for farmers in the UAE. Reply only in "+(lang=="ar"?"Arabic":"English")+". Keep it short: at most 5 plain sentences, no markdown or symbols. Think about UAE heat, salty water and date palms. Irrigation in the UAE is by drip lines and bubblers, so base watering advice on those. For pesticide, licence or legal questions, tell the farmer to follow the product label and ask ADAFSA. If you are unsure, say so.";
+ let t=hist.slice(-8);while(t.length&&t[0].role!="user")t.shift();
+ t=t.map((m,i)=>i==0?{role:m.role,content:sys+"\n\nFarmer: "+m.content}:m);
+ try{const r=await sample(t,{cache:false,onText:({text})=>{b.textContent=text}});b.textContent=r.text;hist.push({role:"assistant",content:r.text});speak(r.text)}
+ catch(e){hist.pop();b.textContent=e&&e.code=="not_granted"?(lang=="ar"?"لم يتم السماح باستخدام المساعد.":"Permission to use the assistant was not given."):(lang=="ar"?"حدث خطأ. حاول مرة أخرى.":"Something went wrong. Try again.")}
+}
+document.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>setLang(b.dataset.l));
+$("#sendBtn").onclick=()=>ask($("#chatIn").value);$("#chatIn").onkeydown=e=>{if(e.key=="Enter")ask($("#chatIn").value)};
+if(SR)$("#micBtn").onclick=mic;else $("#micBtn").style.display="none";
+
+/* ---- ADAFSA requests */
+let adaReqs=[];
+function drawAda(){$("#adaList").innerHTML=adaReqs.length?adaReqs.map(r=>`<div class="alert"><div><b>${r.id}</b> · ${esc(r.topic)}<p style="margin:2px 0 0">${esc(r.note)}</p><span class="mute" style="font-size:13px">Farm ${esc(r.fid)} · ${esc(r.crop)} · ${esc(r.zone)} · ${esc(r.phone)}</span></div><span class="tag warn">Sent to ADAFSA</span></div>`).join(""):'<p class="mute">No requests yet.</p>'}
+$("#adaForm").onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);adaReqs.unshift({id:"SAWA-"+(1041+adaReqs.length),topic:f.get("topic"),zone:f.get("zone"),crop:f.get("crop"),fid:f.get("fid"),phone:f.get("phone"),note:f.get("note")});e.target.elements.note.value="";drawAda()};
+$("#pickZone").innerHTML=$("#adaZone").innerHTML=$("#zoneSel").innerHTML;
+const WX={"Al Ain":["☀️","Sunny",36,32,12],"Liwa":["☀️","Sunny",37,22,24],"Al Dhafra":["🌤️","Mostly sunny",35,40,18],"Abu Dhabi":["🌤️","Mostly sunny",34,58,14],"Dubai":["🌫️","Hazy",34,62,10],"Sharjah":["🌫️","Hazy",34,60,10],"Ajman & UAQ":["⛅","Partly cloudy",33,64,11],"Ras Al Khaimah":["⛅","Partly cloudy",33,55,16],"Fujairah":["🌥️","Cloudy",32,60,22]};
+function drawWeather(){$("#wx").innerHTML=zones.map(z=>{const [e,c,t,h,w]=WX[z];return`<div class="wt"><b>${z}</b><div class="tp">${e} ${t}°C</div><div class="mute" style="font-size:13px">${c} · Humidity ${h}% · Wind ${w} km/h</div><div>${w>=20?'<span class="tag bad">Too windy to spray</span>':'<span class="tag ok">OK to spray early</span>'}${t>=36?'<span class="tag warn">Water early or late</span>':''}</div></div>`}).join("")}
+$("#adaCrop").innerHTML=$("#cropSel").innerHTML;drawWeather();drawGuides();drawAda();setLang("en");
+$("#supSel").innerHTML='<option value="">All suppliers</option>'+[...new Set(supplies.map(x=>x.by))].map(x=>`<option>${esc(x)}</option>`).join("");$("#tgtSel").innerHTML='<option value="">Any problem</option>'+[...new Set(supplies.filter(x=>x.target).map(x=>x.target))].map(x=>`<option>${esc(x)}</option>`).join("");
+setMode("p");go("overview");
+
+/* ---- government dashboard */
+let gEdit=null;
+const fmtBy=v=>new Date(v+"T00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"});
+function gMsg(t,c){const m=$("#gMsg");m.textContent=t;m.className="gmsg "+(c||"")}
+function gRef(){const c=$("#gCrop").value;$("#gRef").textContent=c?"Market reference for "+c+": "+refs[c].toFixed(2)+" AED/kg.":""}
+$("#gCrop").innerHTML=Object.keys(refs).map(c=>`<option>${c}</option>`).join("");$("#gCrop").onchange=gRef;gRef();
+function gReset(){gEdit=null;$("#gForm").reset();$("#gFormTitle").textContent="Add a national need";$("#gSave").textContent="Publish need";$("#gCancel").style.display="none";gRef()}
+function gEditNeed(i){const d=demand[i];gEdit=i;const f=$("#gForm").elements;f.crop.value=d.c;f.need.value=d.need;f.price.value=d.price;f.date.value="";$("#gFormTitle").textContent="Edit "+d.c+" (needed by "+d.by+", leave the date empty to keep it)";$("#gSave").textContent="Save changes";$("#gCancel").style.display="";gRef();gMsg("");$("#gForm").scrollIntoView({behavior:"smooth",block:"center"})}
+function gDelNeed(i){const c=demand[i].c;demand.splice(i,1);if(gEdit==i)gReset();else if(gEdit>i)gEdit--;gMsg(c+" removed. Farmers no longer see it.","warn");render()}
+$("#gCancel").onclick=()=>{gReset();gMsg("")};
+$("#gForm").onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),c=f.get("crop"),need=+f.get("need"),price=+f.get("price"),dt=f.get("date");
+ if(gEdit==null){
+  if(demand.some(d=>d.c==c)){gMsg(c+" is already on the list. Use Edit on it instead.","bad");return}
+  if(!dt){gMsg("Choose a date the commodity is needed by.","bad");return}
+  demand.unshift({c,need,got:0,price,by:fmtBy(dt)});gMsg(c+" published. Farmers can now pledge against it.","ok");
+ }else{
+  const d=demand[gEdit];if(demand.some((x,k)=>k!=gEdit&&x.c==c)){gMsg(c+" is already on the list.","bad");return}
+  d.c=c;d.need=need;d.price=price;if(dt)d.by=fmtBy(dt);d.got=Math.min(d.got,d.need);gMsg(c+" updated.","ok");
+ }
+ gReset();render()};
+function drawGov(){
+ const tn=demand.reduce((a,d)=>a+d.need,0),tg=demand.reduce((a,d)=>a+d.got,0),open=adaReqs.filter(r=>!r.done).length;
+ $("#gKpis").innerHTML=[[demand.length,"Commodities requested"],[tn.toLocaleString()+" t","Total needed"],[(tn?Math.round(tg/tn*100):0)+"%","Pledged by farmers"],[alerts.length,"Active farmer alerts"],[open,"Open ADAFSA requests"]].map(k=>`<div class="card kpi"><b>${k[0]}</b><span>${k[1]}</span></div>`).join("");
+ const sorted=[...demand].sort((a,b)=>a.got/a.need-b.got/b.need);
+ $("#gShort").innerHTML=sorted.length?sorted.slice(0,4).map(d=>`<div style="margin-bottom:8px">${esc(d.c)} <span class="mute">${Math.round(d.got/d.need*100)}% pledged · ${(d.need-d.got).toLocaleString()} t still needed</span><div class="bar"><i style="width:${Math.min(100,d.got/d.need*100)}%"></i></div></div>`).join(""):'<p class="mute">No needs published yet.</p>';
+ $("#gOvAlerts").innerHTML=alerts.length?alerts.slice(0,3).map(a=>`<div style="margin-bottom:8px"><span class="tag ${a.sev}">${esc(a.type)}</span> <b>${esc(a.zone)}</b><div class="mute small">${esc(a.note)}</div></div>`).join(""):'<p class="mute">No alerts.</p>';
+ $("#gNeeds").innerHTML=demand.length?demand.map((d,i)=>`<div class="nrow"><div><b>${esc(d.c)}</b><div class="mute small">Guaranteed ${d.price.toFixed(2)} AED/kg · by ${esc(d.by)}</div></div><div><div class="bar"><i style="width:${Math.min(100,d.got/d.need*100)}%"></i></div><span class="small">${d.got.toLocaleString()} of ${d.need.toLocaleString()} t pledged (${Math.round(d.got/d.need*100)}%)</span></div><div class="bt"><button class="btn alt" onclick="gEditNeed(${i})">Edit</button><button class="btn alt" onclick="gDelNeed(${i})">Remove</button></div></div>`).join(""):'<p class="mute">No needs yet. Add one above.</p>';
+ $("#gAlerts").innerHTML=alerts.length?alerts.map(a=>`<div class="alert"><div><span class="tag ${a.sev}">${esc(a.type)}</span> <b>${esc(a.zone)}</b><p style="margin:4px 0 0">${esc(a.note)}</p><span class="mute small">Reported by ${esc(a.by)} · ${a.n} farmers confirmed</span></div></div>`).join(""):'<p class="mute">No alerts.</p>';
+ $("#gReqs").innerHTML=adaReqs.length?adaReqs.map((r,i)=>`<div class="alert"><div><b>${r.id}</b> · ${esc(r.topic)}<p style="margin:2px 0 0">${esc(r.note)}</p><span class="mute small">Farm ${esc(r.fid)} · ${esc(r.crop)} · ${esc(r.zone)} · ${esc(r.phone)}</span></div><div style="text-align:end"><span class="tag ${r.done?'ok':'warn'}">${r.done?"Resolved":"Open"}</span><br><button class="btn alt" style="margin-top:6px" onclick="adaReqs[${i}].done=!adaReqs[${i}].done;render()">${r.done?"Reopen":"Mark resolved"}</button></div></div>`).join(""):'<p class="mute">No requests yet. Farmer requests from the Help page appear here.</p>';
+}
+
+/* ---- login (demo only: credentials are checked in the browser) */
+const USERS={farmer:{id:"AA-1042",pw:"1234",label:"Farmer"},gov:{id:"admin",pw:"sawa2026",label:"Ministry"}};
+function showLogin(r){document.querySelectorAll("#roleTabs button").forEach(b=>b.classList.toggle("on",b.dataset.r==r));$("#lgFarmer").style.display=r=="farmer"?"":"none";$("#lgGov").style.display=r=="gov"?"":"none"}
+document.querySelectorAll("#roleTabs button").forEach(b=>b.onclick=()=>showLogin(b.dataset.r));
+function enter(r){document.body.dataset.role=r;$("#login").classList.add("off");let w=$("#who");if(!w){w=document.createElement("div");w.id="who";w.className="who";$("#nav").appendChild(w)}w.innerHTML='<span class="wl">Signed in: <b>'+USERS[r].label+'</b></span><button type="button" id="outBtn">Sign out</button>';$("#outBtn").onclick=()=>{document.body.dataset.role="farmer";$("#login").classList.remove("off");w.remove();document.querySelectorAll("#login form").forEach(f=>{f.reset();f.querySelector(".lgerr").textContent=""});showLogin("farmer");go("overview")};go(r=="farmer"?"overview":"g-over")}
+[["#lgFarmer","farmer"],["#lgGov","gov"]].forEach(([sel,r])=>$(sel).onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),u=USERS[r];if(f.get("id").trim().toLowerCase()==u.id.toLowerCase()&&f.get("pw")==u.pw)enter(r);else e.target.querySelector(".lgerr").textContent="Wrong ID or password. Try again."});
+/* ---- Tadweer waste requests */
+function drawWaste(){
+ $("#wGuide").innerHTML=Object.entries(wTypes).map(([t,w])=>`<div class="alert" style="padding:8px 0"><div><b>${esc(t)}</b>${w.hz?'<span class="tag bad wtag small">Hazardous</span>':''}<div class="mute small">${esc(w.tip)}</div></div></div>`).join("");
+ $("#wList").innerHTML=wReqs.length?wReqs.map((r,i)=>`<div class="alert"><div><b>${r.id}</b> · ${esc(r.type)}${wTypes[r.type].hz?'<span class="tag bad wtag small">Hazardous</span>':''}<p style="margin:2px 0 0">${r.qty.toLocaleString()} kg · ${esc(r.farm)} · ${esc(r.zone)} · preferred ${esc(r.date)}</p>${abuDhabiZones.includes(r.zone)?'':'<p class="mute small" style="margin:2px 0 0">Outside the Abu Dhabi emirate: your local waste authority may handle this collection.</p>'}</div><div style="text-align:end"><span class="tag warn">Sent to Tadweer</span><br><button class="btn alt" style="margin-top:6px" onclick="wReqs.splice(${i},1);render()">Cancel</button></div></div>`).join(""):'<p class="mute">No requests yet.</p>';
+}
+$("#wType").innerHTML=Object.keys(wTypes).map(t=>`<option>${esc(t)}</option>`).join("");
+$("#wZone").innerHTML=$("#zoneSel").innerHTML;
+const wTip=()=>{const w=wTypes[$("#wType").value];$("#wTip").innerHTML=(w.hz?'<span class="tag bad small">Hazardous</span> ':'')+esc(w.tip)};
+$("#wType").onchange=wTip;wTip();
+$("#wForm").onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);wReqs.unshift({id:"TDW-"+(2001+wReqs.length),type:f.get("type"),farm:f.get("farm"),zone:f.get("zone"),qty:+f.get("qty"),date:f.get("date")});e.target.elements.farm.value="";e.target.elements.qty.value="";drawWaste()};
+drawWaste();
+</script></body></html>
